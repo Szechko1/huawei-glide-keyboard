@@ -1,0 +1,6 @@
+# Huawei Glide Keyboard - Python Dependencies
+# Currently using only Python standard library
+
+# For future development:
+# numpy>=1.20.0  # For advanced path geometry calculations
+# scipy>=1.7.0   # For curve fitting and interpolation
