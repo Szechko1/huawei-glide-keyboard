@@ -15,19 +15,28 @@ Ez egy **telepíthető Android billentyűzet alkalmazás**, ami lehetővé teszi
 - **Billentyű előnézet**: Vizuális visszajelzés gomb nyomáskor
 - **Testreszabható**: Glide be/ki, szójavaslatok be/ki
 
-## 🚀 Gyors kezdés - APK készítése
+## 🚀 Gyors kezdés - APK beszerzése
 
-### Előfeltételek
+### 🎯 Opció 1: GitHub Actions (LEGEGYSZERŰBB - AJÁNLOTT! 🌟)
 
-Az APK buildeléséhez szükséged lesz:
+**Nincs szükség semmilyen telepítésre! Az APK már készen vár!**
 
-1. **Java JDK** (8 vagy újabb)
-2. **Android SDK** (API 34)
-3. **Android Studio** (ajánlott) vagy parancssori eszközök
+```bash
+1. Menj a GitHub repository Actions fülére
+2. Válaszd ki a legutóbbi sikeres build-et (zöld pipa ✅)
+3. Görgess le az "Artifacts" részhez
+4. Töltsd le az "app-debug" fájlt
+5. Csomagold ki a ZIP-et → app-debug.apk
+6. Telepítsd az eszközödre!
+```
 
-### Lépések
+**👉 [Részletes útmutató: GITHUB_BUILD.md](GITHUB_BUILD.md)**
 
-#### Opció 1: Android Studio (Kezdőknek ajánlott)
+### 💻 Opció 2: Saját gépen build-elés
+
+#### 2a. Android Studio (Kezdőknek ajánlott)
+
+**Szükséges:** Android Studio + Android SDK
 
 ```bash
 1. Telepítsd az Android Studio-t: https://developer.android.com/studio
@@ -36,7 +45,9 @@ Az APK buildeléséhez szükséged lesz:
 4. APK helye: app/build/outputs/apk/debug/app-debug.apk
 ```
 
-#### Opció 2: Parancssor (Haladóknak)
+#### 2b. Parancssor (Haladóknak)
+
+**Szükséges:** Java JDK + Android SDK
 
 ```bash
 # 1. Állítsd be az Android SDK-t
@@ -53,6 +64,7 @@ app/build/outputs/apk/debug/app-debug.apk
 
 ## 📖 Részletes dokumentáció
 
+- **[GITHUB_BUILD.md](GITHUB_BUILD.md)** 🇭🇺 - **APK letöltése GitHub-ról (ajánlott!)**
 - **[HOW_TO_BUILD_APK.md](HOW_TO_BUILD_APK.md)** 🇭🇺 - Magyar nyelvű gyors útmutató APK építéshez
 - **[BUILD_GUIDE.md](BUILD_GUIDE.md)** 🇬🇧 - Teljes körű build útmutató (angolul)
 - **[ANDROID_README.md](ANDROID_README.md)** 🇬🇧 - Android alkalmazás dokumentáció (angolul)
