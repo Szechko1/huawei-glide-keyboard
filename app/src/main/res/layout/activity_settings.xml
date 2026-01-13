@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_title"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"/>
+
+        <!-- Enable Keyboard Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_keyboard_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_keyboard_summary"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_enable_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_keyboard_title"/>
+
+        <!-- Select Keyboard Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_keyboard_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_keyboard_summary"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_select_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_keyboard_title"/>
+
+        <!-- Glide Settings -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_glide_enabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/glide_enabled_title"
+            android:checked="true"
+            android:paddingVertical="12dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_word_suggestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/word_suggestions_title"
+            android:checked="true"
+            android:paddingVertical="12dp"/>
+
+        <!-- Instructions -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How to Use"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/instruction_text"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <!-- About Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_summary"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+</ScrollView>

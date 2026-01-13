@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Huawei Glide Keyboard</string>
+    <string name="keyboard_name">Glide Keyboard</string>
+    <string name="settings_title">Glide Keyboard Settings</string>
+    <string name="enable_keyboard_title">Enable Keyboard</string>
+    <string name="enable_keyboard_summary">Go to Settings → System → Languages &amp; input → On-screen keyboard to enable Glide Keyboard</string>
+    <string name="select_keyboard_title">Select Keyboard</string>
+    <string name="select_keyboard_summary">Select Glide Keyboard as your default keyboard</string>
+    <string name="glide_enabled_title">Glide Input</string>
+    <string name="glide_enabled_summary">Enable swipe gesture typing</string>
+    <string name="word_suggestions_title">Word Suggestions</string>
+    <string name="word_suggestions_summary">Show word predictions while typing</string>
+    <string name="about_title">About</string>
+    <string name="about_summary">Huawei Glide Keyboard v1.0\n\nSwipe across letters to type words quickly.</string>
+    <string name="instruction_text">Swipe your finger across the letters to form words. The keyboard will predict what you\'re typing.</string>
+</resources>

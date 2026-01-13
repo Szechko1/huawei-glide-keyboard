@@ -1,16 +1,30 @@
 # Huawei Glide Keyboard
 
-A Python implementation of a glide/swipe keyboard system that predicts words based on swipe gestures across a virtual keyboard.
+A complete glide/swipe keyboard system with both Python prototype and Android application implementations.
 
 ## Overview
 
 Glide keyboards (also known as swipe keyboards) allow users to type by swiping their finger across the keyboard from letter to letter, rather than tapping individual keys. The system tracks the path and predicts the intended word.
 
-This implementation provides:
-- A QWERTY keyboard layout with normalized coordinates
+This repository contains:
+
+### 🤖 **Android Application** (Production Ready)
+A fully functional Android keyboard app that can be installed on any Android device (API 21+). Features include:
+- Native Android Input Method Service (IME)
+- Real-time glide gesture detection
+- Word prediction and suggestion strip
+- QWERTY and symbols layouts
+- Customizable settings
+
+**📱 See [ANDROID_README.md](ANDROID_README.md) for build and installation instructions.**
+
+### 🐍 **Python Prototype** (Reference Implementation)
+A Python implementation used for algorithm development and testing:
+- QWERTY keyboard layout with normalized coordinates
 - Path-to-word prediction algorithm
 - Customizable word dictionary
 - Word matching and ranking system
+- Simulation and testing tools
 
 ## Features
 
@@ -20,13 +34,22 @@ This implementation provides:
 - **Dictionary Management**: Add/remove words dynamically
 - **Path Simulation**: Generate realistic glide paths for testing
 
-## Installation
+## Quick Start
+
+### For Android Users (Recommended)
+👉 **[See ANDROID_README.md for complete Android app build and installation guide](ANDROID_README.md)**
+
+Build and install the keyboard app on your Android device.
+
+### For Python Development
 
 No external dependencies required. Uses only Python standard library.
 
 ```bash
 git clone <repository-url>
 cd huawei-glide-keyboard
+python example.py  # Run the demo
+python test_glide_keyboard.py  # Run tests
 ```
 
 ## Usage
@@ -156,6 +179,34 @@ Utility function to generate realistic glide paths.
 - `noise`: Amount of random noise (0-1, default 0.02)
 
 **Returns:** List of (x, y) coordinates
+
+## Project Structure
+
+```
+huawei-glide-keyboard/
+├── 📱 Android Application
+│   ├── app/                          # Android app module
+│   │   ├── src/main/java/            # Java source code
+│   │   │   └── com/huawei/glidekeyboard/
+│   │   │       ├── GlideKeyboardService.java
+│   │   │       ├── GlidePathDetector.java
+│   │   │       ├── WordPredictor.java
+│   │   │       └── SettingsActivity.java
+│   │   └── src/main/res/            # Android resources
+│   ├── build.gradle                 # App build config
+│   ├── settings.gradle              # Project settings
+│   └── gradle.properties            # Gradle properties
+│
+├── 🐍 Python Prototype
+│   ├── glide_keyboard.py           # Core implementation
+│   ├── example.py                  # Usage examples
+│   ├── test_glide_keyboard.py      # Unit tests
+│   └── requirements.txt            # Python dependencies
+│
+└── 📄 Documentation
+    ├── README.md                    # This file (overview)
+    └── ANDROID_README.md           # Android build guide
+```
 
 ## Future Enhancements
 
