@@ -23,32 +23,38 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        api-level: 34
-        build-tools: 34.0.0
-        cmake: 3.22.1
-        ndk: 25.2.9519653
-
-    - name: Accept Android SDK licenses
-      run: yes | sdkmanager --licenses || true
-
-    - name: Install SDK Platform and Build Tools
       run: |
+        # Install Android SDK command-line tools
+        wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+        mkdir -p $HOME/android-sdk/cmdline-tools
+        unzip -q cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools
+        mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
+        rm cmdline-tools.zip
+
+        # Set environment variables
+        echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
+        echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
+        echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+        echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
+
+    - name: Install Android SDK components
+      run: |
+        yes | sdkmanager --licenses || true
         sdkmanager "platforms;android-34"
         sdkmanager "build-tools;34.0.0"
         sdkmanager "platform-tools"
 
-    - name: Verify SDK Installation
+    - name: Verify Android SDK
       run: |
         echo "ANDROID_HOME: $ANDROID_HOME"
         echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
-        ls -la $ANDROID_HOME/platforms || echo "Platforms not found"
-        ls -la $ANDROID_HOME/build-tools || echo "Build tools not found"
+        ls -la $ANDROID_HOME/platforms || echo "No platforms directory"
+        ls -la $ANDROID_HOME/build-tools || echo "No build-tools directory"
+        which sdkmanager
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
     - name: Cache Gradle packages
       uses: actions/cache@v3
@@ -61,11 +67,16 @@ jobs:
           ${{ runner.os }}-gradle-
 
     - name: Build debug APK
-      run: ./gradlew assembleDebug --stacktrace --info
+      run: ./gradlew assembleDebug --stacktrace
 
     - name: Build release APK (unsigned)
       run: ./gradlew assembleRelease --stacktrace
-      continue-on-error: true  # Release might fail without signing key
+      continue-on-error: true
+
+    - name: List output files
+      run: |
+        echo "Checking for APK files..."
+        find app/build/outputs -name "*.apk" -type f
 
     - name: Get APK info
       id: apk_info
@@ -73,10 +84,14 @@ jobs:
         if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
           echo "debug_size=$(du -h app/build/outputs/apk/debug/app-debug.apk | cut -f1)" >> $GITHUB_OUTPUT
           echo "debug_exists=true" >> $GITHUB_OUTPUT
+          echo "✅ Debug APK found: $(du -h app/build/outputs/apk/debug/app-debug.apk | cut -f1)"
+        else
+          echo "❌ Debug APK not found"
         fi
         if [ -f app/build/outputs/apk/release/app-release-unsigned.apk ]; then
           echo "release_size=$(du -h app/build/outputs/apk/release/app-release-unsigned.apk | cut -f1)" >> $GITHUB_OUTPUT
           echo "release_exists=true" >> $GITHUB_OUTPUT
+          echo "✅ Release APK found: $(du -h app/build/outputs/apk/release/app-release-unsigned.apk | cut -f1)"
         fi
 
     - name: Upload debug APK
