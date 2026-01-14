@@ -28,9 +28,40 @@ jobs:
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
+      with:
+        api-level: 34
+        build-tools: 34.0.0
+        cmake: 3.22.1
+        ndk: 25.2.9519653
+
+    - name: Accept Android SDK licenses
+      run: yes | sdkmanager --licenses || true
+
+    - name: Install SDK Platform and Build Tools
+      run: |
+        sdkmanager "platforms;android-34"
+        sdkmanager "build-tools;34.0.0"
+        sdkmanager "platform-tools"
+
+    - name: Verify SDK Installation
+      run: |
+        echo "ANDROID_HOME: $ANDROID_HOME"
+        echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+        ls -la $ANDROID_HOME/platforms || echo "Platforms not found"
+        ls -la $ANDROID_HOME/build-tools || echo "Build tools not found"
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
 
     - name: Build debug APK
-      run: ./gradlew assembleDebug --stacktrace
+      run: ./gradlew assembleDebug --stacktrace --info
 
     - name: Build release APK (unsigned)
       run: ./gradlew assembleRelease --stacktrace
@@ -50,6 +81,7 @@ jobs:
 
     - name: Upload debug APK
       uses: actions/upload-artifact@v4
+      if: success()
       with:
         name: app-debug
         path: app/build/outputs/apk/debug/app-debug.apk
@@ -64,6 +96,7 @@ jobs:
         retention-days: 30
 
     - name: Build summary
+      if: success()
       run: |
         echo "### ✅ Build Successful!" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -82,7 +115,7 @@ jobs:
         echo "3. Install and enable in Settings → Languages & Input → On-screen keyboard" >> $GITHUB_STEP_SUMMARY
 
     - name: Comment PR with build info
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && success()
       uses: actions/github-script@v7
       with:
         script: |
